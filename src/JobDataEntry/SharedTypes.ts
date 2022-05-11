@@ -1,6 +1,6 @@
 export interface JDEOption {
   id: string;
-  isRequired: boolean;
+  isRequired: boolean | null;
   label: string;
   optionTagLabels?: string[];
   orderIdx: number;
@@ -65,15 +65,15 @@ export type VehicleStatus =
 export interface CTSystemDetail {
   id: string;
   orderIdx?: number;
-  companyId: string[];
-  makeModelYear: MakeModelYear[];
-  driveType: DriveType[];
-  mileageMinValue: number;
-  mileageMaxValue: number;
-  isRotational: boolean;
-  tireSizes: string[];
-  vehiclePowertrain: VehiclePowertrain[];
-  vehicleStatuses: VehicleStatus[];
+  companyId: string[] | null;
+  makeModelYear: MakeModelYear[] | null;
+  driveType: DriveType[] | null;
+  mileageMinValue: number | null;
+  mileageMaxValue: number | null;
+  isRotational: boolean | null;
+  tireSizes: string[] | null;
+  vehiclePowertrain: VehiclePowertrain[] | null;
+  vehicleStatuses: VehicleStatus[] | null;
 }
 
 export enum ConditionalJobActionEnum {
@@ -101,9 +101,9 @@ export interface CTQuestion extends JDEQuestion {
   jobRenderedByMin?: number;
   jobRenderedByMax?: number;
   jobRenderedByOptionIds?: string[];
-  conditionalTaskQuestionId?: string;
-  taskRenderedByMin?: number;
-  taskRenderedByMax?: number;
+  conditionalTaskQuestionId?: string | null	;
+  taskRenderedByMin?: number | null;
+  taskRenderedByMax?: number | null;
   taskRenderedByOptionIds?: string[];
 }
 
@@ -130,8 +130,8 @@ export interface Alert {
   id: string;
   body: string;
   renderedByOptionIds: string[];
-  renderedByMin: number;
-  renderedByMax: number;
+  renderedByMin: number | null;
+  renderedByMax: number | null;
   recipientRoles: string[];
 }
 
@@ -142,26 +142,26 @@ export interface JDEQuestion {
   label: string;
   type: string;
   children: Array<JDEQuestion> | null;
-  conditionalQuestionParentId?: string;
+  conditionalQuestionParentId?: string | null;
   alerts: Array<Alert> | null;
   isRequired?: boolean;
   isBridgit?: boolean;
   isStandard?: boolean;
-  defaultOption?: string;
+  defaultOption: string | null;
   options: JDEOption[] | null;
   orderIdx?: number;
-  placeholder: string;
-  rangeMax?: number;
-  rangeMin?: number;
-  renderedByOptionIds?: string[];
-  renderedByMin?: number;
-  renderedByMax?: number;
-  tagDescription?: string;
-  tagIsBridgit?: boolean;
-  tagLabel?: string;
+  placeholder: string | null;
+  rangeMax?: number | null;
+  rangeMin?: number | null;
+  renderedByOptionIds: string[] | null;
+  renderedByMin: number | null;
+  renderedByMax: number | null;
+  tagDescription: string | null;
+  tagIsBridgit: boolean | null;
+  tagLabel: string | null;
   answers: Answer[] | null;
   position: string | null;
-  isVerifiable?: boolean;
+  isVerifiable?: boolean | null;
   assumedValue?: AcceptedValues;
   requiredCVDFields?: string[];
   anomalyCheck: null;
@@ -181,27 +181,27 @@ export interface StepMetaData {
 
 export interface JDETask {
   id: string;
-  baseTaskId?: string;
-  estimatedMinutes?: number;
-  instructions: string;
+  baseTaskId: string | null;
+  estimatedMinutes: number;
+  instructions: string | null;
   inventory: string | null;
-  isStandard?: boolean;
+  isStandard: boolean;
   name: string;
-  orderIdx?: number;
+  orderIdx: number;
   questions: JDEQuestion[];
-  categoryId?: string;
-  renderedByDriveTypes?: string[];
-  renderedByOptionId?: string;
-  conditionalTaskAction?: ConditionalJobAction;
-  renderedByQuestions?: CTQuestion[];
-  renderedByVehicleDetails?: CTSystemDetail[];
-  renderedByVehicleDetailsArtificial?: ArtificialCTSystemDetail[];
-  baseTaskTagName?: string;
-  baseTaskTagDescription?: string;
-  baseTaskTagId: string;
-  taskTagDescription: string;
-  taskTagId: string;
-  taskTagName: string;
+  categoryId: string | null;
+  renderedByDriveTypes: string[] | null;
+  renderedByOptionId: string | null;
+  conditionalTaskAction: ConditionalJobAction | null;
+  renderedByQuestions: CTQuestion[] | null;
+  renderedByVehicleDetails: CTSystemDetail[] | null;
+  renderedByVehicleDetailsArtificial?: ArtificialCTSystemDetail[] | null;
+  baseTaskTagName?: string | null;
+  baseTaskTagDescription?: string | null;
+  baseTaskTagId: string | null;
+  taskTagDescription: string | null;
+  taskTagId: string | null;
+  taskTagName: string | null;
 }
 
 export interface GroupSummary {
@@ -264,17 +264,17 @@ export interface CancelReasons {
 }
 
 export interface JDEJob {
-  conditionalJobAction?: ConditionalJobAction;
+  conditionalJobAction: ConditionalJobAction | null;
   id: string;
-  jobTagLabels?: string[];
+  jobTagLabels: string[] | [null];
   name: string;
-  orderIdx?: number;
-  renderedByQuestions?: JobCTQuestion[] | null;
-  renderedByVehicleDetails?: CTSystemDetail[] | null;
-  renderedByVehicleDetailsArtificial?: ArtificialCTSystemDetail[] | null;
+  orderIdx: number;
+  renderedByQuestions: JobCTQuestion[] | null;
+  renderedByVehicleDetails: CTSystemDetail[] | null;
+  renderedByVehicleDetailsArtificial: ArtificialCTSystemDetail[] | null;
   tasks: JDETask[];
-  type: string;
-  companies: string;
+  type: string | null;
+  companies: string | null;
   hidden: boolean | null;
 }
 
@@ -283,7 +283,7 @@ export interface Step {
   name: string;
   orderIdx?: number;
   jobs: JDEJob[];
-  metadata: StepMetaData;
+  metadata: StepMetaData | null;
 }
 
 export enum ServiceImpact {
@@ -321,19 +321,19 @@ export interface Summary {
   queueItemId: string;
   impact: ServiceImpact | null;
   serviceLocationId: string;
-  canceledByEmail: string;
+  canceledByEmail: string | null;
   cancelReason: CancelReasons | null;
-  canceledByFirstName: string;
-  canceledByLastName: string;
-  canceledByUserId: string;
+  canceledByFirstName: string | null;
+  canceledByLastName: string | null;
+  canceledByUserId: string | null;
   dateCreated: string;
-  dateCompleted: string;
-  dateCanceled: string;
-  dateDeleted: string;
+  dateCompleted: string | null;
+  dateCanceled: string | null;
+  dateDeleted: string | null;
   dateScheduled: string;
   techHasTools: boolean;
   techHasSafetyGear: boolean;
-  completedBy: string;
+  completedBy: string | null;
   servicedBy: string;
   scheduledTechEmail: string;
   scheduledTechFirstName: string;
@@ -350,16 +350,16 @@ export interface Summary {
   license: string;
   companyId: string;
   companyName: string;
-  techFirstName: string;
-  techLastName: string;
-  techEmail: string;
-  techUserId: string;
+  techFirstName: string | null;
+  techLastName: string | null;
+  techEmail: string | null;
+  techUserId: string | null;
   serviceId: string;
   serviceLocation: string;
   serviceName: string;
   additionalComments: string;
   serviceIsStandard: boolean;
-  serviceTagLabel?: string;
+  serviceTagLabel?: string | null;
   driveType: DriveType;
   mileage: number | null;
   frontTirePsi: string;
@@ -371,14 +371,14 @@ export interface Summary {
   wheelTorqueFtplbs: string;
   grooveCount: number;
   oilSpecification: string;
-  fuelType: FuelType;
+  fuelType: FuelType | null;
   vehicleStatus: VehicleStatus;
 }
 
 export interface Form {
   summary: Partial<Summary>;
   steps: Step[];
-  cancelReasons?: CancelReasons;
-  additionalWorkComments?: string;
+  cancelReasons?: CancelReasons | null;
+  additionalWorkComments?: string | null;
   groups?: GroupSummary[];
 }
